@@ -1,8 +1,9 @@
+var operationSelected;
 
 
 window.onload = function showIndexForm() {
 
-    var idForm = document.getElementById('form');
+    var idForm = document.getElementById('form1');
     var form1 = document.createElement('form');
     form1.setAttribute('id', 'formOpen');
 
@@ -13,116 +14,15 @@ window.onload = function showIndexForm() {
 
     addTittle(table1);
 
-    var tr0 = document.createElement('tr');
-    var td0 = document.createElement('td');
-    td0.setAttribute('colspan', '3');
-    var txtTd0 = document.createTextNode('¿Qué es lo que desea cacular?');
-    td0.appendChild(txtTd0);
-    tr0.appendChild(td0);
-    table1.appendChild(tr0);
-
     addSelectOperation(table1);
 
-}
-
-function addTittle(table) {
-
-    var tr0 = document.createElement('tr');
-    var td0 = document.createElement('td');
-    td0.setAttribute('colspan', '3');
-    var txtTd0 = document.createTextNode('Bienvenido a la Calculadora Financiera');
-    td0.appendChild(txtTd0);
-    tr0.appendChild(td0);
-    table.appendChild(tr0);
-
-
-
-}
-
-
-function addSelectOperation(table) {
-
-    var trS = document.createElement('tr');
-    var tdS = document.createElement('td');
-    tdS.setAttribute('colspan', '3');
-    trS.appendChild(tdS);
-    var selectVar = document.createElement('select');
-    selectVar.setAttribute('id', 'selectVar');
-    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Tasa nominal', 'Descuento'];
-
-
-    for (var i = 0; i < 5; i++) {
-
-        var op1 = document.createElement('option');
-        op1.setAttribute('value', namesVar[i]);
-        op1.setAttribute('label', namesVar[i]);
-        selectVar.appendChild(op1);
-    }
-
-    tdS.appendChild(selectVar);
-
-    table.appendChild(trS);
-
-
-    var selectVar = document.getElementById('selectVar');
-
-    selectVar.onchange = function () {
-
-        // var inputs = document.getElementById(selectVar.value);
-
-
-        switch (selectVar.value) {
-
-            case 'Capitalización Simple':
-                var form1 = document.getElementById('formOpen');
-                console.log(form1);
-                form1.setAttribute('class', 'hidden');
-                showSimpleCapForm();
-
-
-                var buttonCalcular = document.getElementById('Calcular');
-                console.log(buttonCalcular);
-
-                buttonCalcular.addEventListener('click', function () {
-
-                    var capIn = document.getElementById('Cap. Inicial');
-                    var child = capIn.childNodes;
-
-                    alert(child);
-                    
-
-                calcular();
-
-                });
-                break;
-            default:
-                break;
-
-        }
-
-
-
-    };
-
-
-
-
-
 
 }
 
 
 
 
-function calcular(){
-
-
-
-
-
-}
-
-
+//parts
 
 function addSelects(table) {
 
@@ -156,14 +56,19 @@ function addSelects(table) {
     table.appendChild(trS);
 
 
+    selectVar.onchange = function () {
+        var inputs = document.getElementById(selectVar.value);
+
+        blockInputs(inputs);
+
+    };
+
+
+
 }
 function addInputs(table) {
 
-
-
     var namesVar = ['Cap. Inicial', 'Tiempo', 'Porc. Int.', 'Ganancias'];
-
-
     for (var i = 0; i < 4; i++) {
 
         var tr = document.createElement('tr');
@@ -179,12 +84,8 @@ function addInputs(table) {
                     break;
                 case 1:
                     var input = document.createElement('input');
-
-                    var textIn = document.createTextNode('99');
-
                     input.setAttribute('id', namesVar[i]);
-                    
-                    input.appendChild(textIn);
+
                     td1.appendChild(input);
                     break;
                 default: break;
@@ -221,30 +122,85 @@ function addButons(table) {
         button.appendChild(text1);
 
 
+
     }
     table.appendChild(tr2);
 
 
+
+
 }
 
-function blockInputs(inputs) {
+function addSelectOperation(table) {
 
-    var inputs1 = document.querySelectorAll("input");
+    var trS = document.createElement('tr');
+    var tdS = document.createElement('td');
+    tdS.setAttribute('colspan', '3');
+    trS.appendChild(tdS);
+    var selectVar = document.createElement('select');
+    selectVar.setAttribute('id', 'selectVar');
+    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Tasa nominal', 'Descuento'];
 
-    for (i = 0; i < inputs1.length; i++) {
-        inputs1[i].disabled = false;
-        inputs1[i].style.backgroundColor = 'white';
+
+    for (var i = 0; i < 5; i++) {
+
+        var op1 = document.createElement('option');
+        op1.setAttribute('value', namesVar[i]);
+        op1.setAttribute('label', namesVar[i]);
+        selectVar.appendChild(op1);
     }
-    inputs.setAttribute('disabled', 'true');
-    inputs.style.backgroundColor = 'grey';
+
+    tdS.appendChild(selectVar);
+
+    table.appendChild(trS);
+
+
+    var selectVar = document.getElementById('selectVar');
+    var formIntro = document.getElementById('form1');
+
+    selectVar.onchange = function () {
+
+
+
+        formIntro.setAttribute('class', 'hidden');
+
+        addFormCapSimple();
+
+
+    };
+
+
+
+}
+function addTittle(table) {
+
+    var tr0 = document.createElement('tr');
+    var td0 = document.createElement('td');
+    td0.setAttribute('colspan', '3');
+    var txtTd0 = document.createTextNode('Bienvenido a la Calculadora Financiera');
+    td0.appendChild(txtTd0);
+    tr0.appendChild(td0);
+    table.appendChild(tr0);
+
+    var tr1 = document.createElement('tr');
+    var td1 = document.createElement('td');
+    td1.setAttribute('colspan', '3');
+    var txtTd1 = document.createTextNode('¿Qué es lo que desea cacular?');
+    td1.appendChild(txtTd1);
+    tr1.appendChild(td1);
+    table.appendChild(tr1);
+
+
 
 }
 
 
-function showSimpleCapForm() {
+function addFormCapSimple() {
 
 
-    var idForm = document.getElementById('form');
+
+
+    var idForm = document.getElementById('form2');
     var form1 = document.createElement('form');
 
     idForm.appendChild(form1);
@@ -260,24 +216,64 @@ function showSimpleCapForm() {
     addButons(table1);
 
 
-    var selectVar = document.getElementById('selectVar1');
-
-    selectVar.onchange = function () {
-
-        var inputs = document.getElementById(selectVar.value);
-        blockInputs(inputs);
-
-    };
+    var buttonCalcular = document.getElementById('Calcular');
 
 
+    buttonCalcular.onclick = function () {
+
+        calcularCapitalizacionSimple(operationSelected);
+
+    }
 
 
-    // var inputs = document.getElementById(selectVar.value);
-    // blockInputs(inputs);
-
-    // operation = new operation();
-    // calcular();
+}
 
 
+
+function blockInputs(inputs) {
+
+    var inputs1 = document.querySelectorAll("input");
+
+    for (i = 0; i < inputs1.length; i++) {
+        inputs1[i].disabled = false;
+        inputs1[i].style.backgroundColor = 'white';
+    }
+    inputs.setAttribute('disabled', 'true');
+    inputs.style.backgroundColor = 'grey';
+    operationSelected = inputs.id;
+    console.log(inputs.id);
+}
+
+
+function calcularCapitalizacionSimple(operationSelected) {
+
+
+
+    var iniCap = document.getElementById('Cap. Inicial');
+    var time = document.getElementById('Tiempo');
+    var porc = document.getElementById('Porc. Int.');
+    var earning = document.getElementById('Ganancias');
+    var operation1 = new operation(iniCap.value, time.value, porc.value);
+    operation1.earnings = earning;
+    var resultado = 'error de calculo';
+    switch (operationSelected) {
+        case ('Ganancias'):
+            resultado = operation1.calculateEarnedEarnings();
+            break;
+        case ('Cap. Inicial'):
+            resultado = operation1.calculateInitialCap();
+            break;
+        case ('Porc. Int.'):
+            resultado = operation1.calculateInterest();
+            break;
+        case ('Tiempo'):
+            resultado = operation1.calculateTime();
+            break;
+        default:
+            break;
+
+    }
+    alert(resultado);
+    return resultado;
 
 }

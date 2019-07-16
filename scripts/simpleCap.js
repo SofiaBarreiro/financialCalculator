@@ -1,4 +1,4 @@
-class operation{
+class operation {
 
 
 
@@ -16,43 +16,41 @@ class operation{
         this.intialCap = intialCap;
         this.time = time;
         this.percentIn = percentIn;
-        this.divisor= 100;
+        this.divisor = 100;
 
     }
 
 
-    calculateEarnedEarnings(){
+    calculateEarnedEarnings() {
 
-    var i= this.percentIn/this.divisor;
-    this.earnings = this.intialCap * (1+ i * this.time);
-    return this.earnings;
-
-    }
-
-    calculateInitialCap(){
-
-    var i = this.percentIn/this.divisor;
-    this.intialCap=this.earnings/[1 + (i*10)];
-    return this.intialCap;
-    }
-    
-    calculateInterest(){
-
-    this.percentIn = this.earnings - this.intialCap/ (this.intialCap* this.time);
-    return this.percentIn;
-    }
-
-
-    calculateTime(){
-
-    var i = this.percentIn/this.divisor;    
-    this.time= (this.earnings - this.intialCap) / (this.intialCap*i);
-    return this.time;
-
+        var i = this.percentIn / this.divisor;
+        this.earnings = this.intialCap * (1 + i * this.time);
+        return this.earnings;
 
     }
 
+    calculateInitialCap() {
 
+        var i = this.percentIn / this.divisor;
+        this.intialCap = this.earnings / [1 + (i * 10)];
+        return this.intialCap;
+    }
+
+    calculateInterest() {
+
+        this.percentIn = this.earnings - this.intialCap / (this.intialCap * this.time);
+        return this.percentIn;
+    }
+
+
+    calculateTime() {
+
+        var i = this.percentIn / this.divisor;
+        this.time = (this.earnings - this.intialCap) / (this.intialCap * i);
+        return this.time;
+
+
+    }
 
 
 
