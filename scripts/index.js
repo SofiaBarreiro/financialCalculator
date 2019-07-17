@@ -107,7 +107,7 @@ function addInputs(table) {
 
 
 
-function addButons(table, numbOperation) {
+function addButons(table) {
 
 
     var tr2 = document.createElement('tr');
@@ -136,11 +136,7 @@ function addButons(table, numbOperation) {
 
     buttonCalcular.addEventListener('click', function (load) {
         load.preventDefault();
-
-
         makeCal(operationSelected);
-
-
         borrarInputs();
 
     });
@@ -306,7 +302,6 @@ function makeCal(operationSelected) {
             break;
         case (4):
             operation = new effectiveRate(iniCap.value, time.value, porc.value);
-
             break;
         default:
             break;
@@ -316,15 +311,15 @@ function makeCal(operationSelected) {
         case ('Ganancias'):
             resultado = operation.calculateEarnedEarnings();
             break;
-        // case ('Cap. Inicial'):
-        //     resultado = operation.calculateInitialCap();
-        //     break;
-        // case ('Porc. Int.'):
-        //     resultado = operation.calculateInterest();
-        //     break;
-        // case ('Tiempo'):
-        //     resultado = operation.calculateTime();
-        //     break;
+        case ('Cap. Inicial'):
+            resultado = operation.calculateInitialCap();
+            break;
+        case ('Porc. Int.'):
+            resultado = operation.calculateInterest();
+            break;
+        case ('Tiempo'):
+            resultado = operation.calculateTime();
+            break;
         default:
             break;
 

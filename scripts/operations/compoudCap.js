@@ -24,7 +24,7 @@ class compoudCap {
         var i = this.percentIn / this.divisor;
         var a = 1 + i;
         var b = Math.pow(a, this.time);
-        this.earnings = this.intialCap * b ;
+        this.earnings = this.intialCap * b;
         alert(this.earnings);
         return this.earnings;
 
@@ -32,27 +32,24 @@ class compoudCap {
 
 
 
-    // calculateInitialCap() {
+    calculateInitialCap() {
 
-    //     var i = this.percentIn / this.divisor;
-    //     var a = i * this.time;
-    //     a = a+1;
-    //     this.intialCap = this.earnings / a;
+        var i = this.percentIn / this.divisor;
+        var a = 1 + i;
+        var res = Math.pow(a, this.time);
+        this.intialCap = this.earnings / res;
+        return this.intialCap;
+    }
 
-    //     return this.intialCap;
-    // }
+    calculateInterest() {
 
-    // calculateInterest() {
-
-    //     var a = this.intialCap * this.time;
-    //     var b = this.earnings - this.intialCap;
-        
-    //     var c=  b / a;
-
-    //     this.percentIn = c * 100;
-        
-    //     return this.percentIn;
-    // }
+        var a = this.earnings / this.intialCap;
+        var exp = 1 / this.time
+        var res = Math.pow(a, exp);
+        this.percentIn = (res - 1);
+        this.percentIn = this.percentIn * 100;
+        return this.percentIn;
+    }
 
 
     // calculateTime() {
