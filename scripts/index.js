@@ -1,7 +1,8 @@
 var operationSelected;
+var inputs;
 
+window.addEventListener('load', function(){
 
-window.onload = function showIndexForm() {
 
     var idForm = document.getElementById('form1');
     var form1 = document.createElement('form');
@@ -15,9 +16,8 @@ window.onload = function showIndexForm() {
     addTittle(table1);
 
     addSelectOperation(table1);
-
-
-}
+    console.log('paso por load');
+});
 
 
 
@@ -85,7 +85,6 @@ function addInputs(table) {
                 case 1:
                     var input = document.createElement('input');
                     input.setAttribute('id', namesVar[i]);
-
                     td1.appendChild(input);
                     break;
                 default: break;
@@ -98,6 +97,8 @@ function addInputs(table) {
         table.appendChild(tr);
 
     }
+
+
 
 }
 
@@ -126,7 +127,26 @@ function addButons(table) {
     }
     table.appendChild(tr2);
 
+    var buttonBorrar = document.getElementById('Borrar');
 
+    var buttonCalcular = document.getElementById('Calcular');
+
+
+
+    buttonCalcular.addEventListener('click',function () {
+
+        calcularCapitalizacionSimple(operationSelected);
+
+    });
+
+    window.removeEventListener("load", function(){});
+    buttonBorrar.addEventListener('click', function () {
+        
+
+        
+        borrarInputs();
+
+    });
 
 
 }
@@ -199,7 +219,6 @@ function addFormCapSimple() {
 
 
 
-
     var idForm = document.getElementById('form2');
     var form1 = document.createElement('form');
 
@@ -215,20 +234,24 @@ function addFormCapSimple() {
 
     addButons(table1);
 
+ 
 
-    var buttonCalcular = document.getElementById('Calcular');
-
-
-    buttonCalcular.onclick = function () {
-
-        calcularCapitalizacionSimple(operationSelected);
-
-    }
 
 
 }
 
 
+function borrarInputs() {
+
+    var inputs1 = document.querySelectorAll("input");
+
+    for (i = 0; i < inputs1.length; i++) {
+        inputs1[i].value = '';
+
+    }
+
+
+}
 
 function blockInputs(inputs) {
 
@@ -241,7 +264,6 @@ function blockInputs(inputs) {
     inputs.setAttribute('disabled', 'true');
     inputs.style.backgroundColor = 'grey';
     operationSelected = inputs.id;
-    console.log(inputs.id);
 }
 
 
@@ -254,7 +276,7 @@ function calcularCapitalizacionSimple(operationSelected) {
     var porc = document.getElementById('Porc. Int.');
     var earning = document.getElementById('Ganancias');
     var operation1 = new operation(iniCap.value, time.value, porc.value);
-    operation1.earnings = earning;
+    operation1.earnings = earning.value;
     var resultado = 'error de calculo';
     switch (operationSelected) {
         case ('Ganancias'):

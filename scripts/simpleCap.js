@@ -24,6 +24,8 @@ class operation {
     calculateEarnedEarnings() {
 
         var i = this.percentIn / this.divisor;
+
+
         this.earnings = this.intialCap * (1 + i * this.time);
         return this.earnings;
 
@@ -32,13 +34,22 @@ class operation {
     calculateInitialCap() {
 
         var i = this.percentIn / this.divisor;
-        this.intialCap = this.earnings / [1 + (i * 10)];
+        var a = i * this.time;
+        a = a+1;
+        this.intialCap = this.earnings / a;
+
         return this.intialCap;
     }
 
     calculateInterest() {
 
-        this.percentIn = this.earnings - this.intialCap / (this.intialCap * this.time);
+        var a = this.intialCap * this.time;
+        var b = this.earnings - this.intialCap;
+        
+        var c=  b / a;
+
+        this.percentIn = c * 100;
+        
         return this.percentIn;
     }
 
@@ -46,7 +57,9 @@ class operation {
     calculateTime() {
 
         var i = this.percentIn / this.divisor;
-        this.time = (this.earnings - this.intialCap) / (this.intialCap * i);
+        var a = this.earnings - this.intialCap;
+        var b= this.intialCap * i;
+        this.time = a / b;
         return this.time;
 
 
