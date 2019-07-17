@@ -1,6 +1,8 @@
 var operationSelected;
 var inputs;
 var numbOperation;
+var resultado = 'error de calculo';
+var retorno;
 
 window.addEventListener('load', function () {
 
@@ -22,19 +24,28 @@ window.addEventListener('load', function () {
 
 });
 
-
-
-
 //parts
 
-function addSelects(table) {
+
+function addText(text){
 
     var tr0 = document.createElement('tr');
     var td0 = document.createElement('td');
     td0.setAttribute('colspan', '3');
-    var txtTd0 = document.createTextNode('¿Cuál es la variable que desea Calcular?');
+    var txtTd0 = document.createTextNode(text);
     td0.appendChild(txtTd0);
     tr0.appendChild(td0);
+    return tr0;
+
+}
+
+
+function addSelects(table) {
+
+    table.appendChild(addText(retorno));
+
+    table.appendChild(addText('¿Cuál es la variable que desea calcular?'));
+
 
     var trS = document.createElement('tr');
     var tdS = document.createElement('td');
@@ -55,7 +66,6 @@ function addSelects(table) {
 
     tdS.appendChild(selectVar);
 
-    table.appendChild(tr0);
     table.appendChild(trS);
 
 
@@ -105,7 +115,43 @@ function addInputs(table) {
 
 }
 
+function addInputsEffectiveRate(table) {
 
+
+    table.appendChild(addText(retorno));
+
+    var namesVar = ['Tiempo', 'Porc. Int.'];
+    for (var i = 0; i < 2; i++) {
+
+        var tr = document.createElement('tr');
+
+        for (var j = 0; j < 2; j++) {
+            var td1 = document.createElement('td');
+
+            switch (j) {
+
+                case 0:
+                    var text1 = document.createTextNode(namesVar[i]);
+                    td1.appendChild(text1);
+                    break;
+                case 1:
+                    var input = document.createElement('input');
+                    input.setAttribute('id', namesVar[i]);
+                    td1.appendChild(input);
+                    break;
+                default: break;
+            }
+
+            tr.appendChild(td1);
+
+
+        }
+        table.appendChild(tr);
+
+    }
+
+
+}
 
 function addButons(table) {
 
@@ -159,7 +205,7 @@ function addSelectOperation(table) {
     trS.appendChild(tdS);
     var selectVar = document.createElement('select');
     selectVar.setAttribute('id', 'selectVar');
-    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Tasa nominal', 'Descuento'];
+    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Descuento', 'Tasa nominal'];
 
 
     for (var i = 0; i < 5; i++) {
@@ -180,6 +226,7 @@ function addSelectOperation(table) {
 
     selectVar.onchange = function () {
 
+        retorno = selectVar.value;
         formIntro.setAttribute('class', 'hidden');
         switch (selectVar.value) {
             case ('Capitalización Simple'):
@@ -190,14 +237,15 @@ function addSelectOperation(table) {
                 numbOperation = 2;
                 addFormCalculator();
                 break;
-            case ('Tasa nominal'):
+            case ('Descuento'):
                 numbOperation = 3;
                 addFormCalculator();
                 break;
-            case ('Descuento'):
+            case ('Tasa nominal'):
                 numbOperation = 4;
-                addFormCalculator();
+                addFormCalculator(1);
                 break;
+
             default:
                 break;
 
@@ -207,7 +255,7 @@ function addSelectOperation(table) {
 
     };
 
-
+    return retorno;
 
 }
 function addTittle(table) {
@@ -223,7 +271,7 @@ function addTittle(table) {
     var tr1 = document.createElement('tr');
     var td1 = document.createElement('td');
     td1.setAttribute('colspan', '3');
-    var txtTd1 = document.createTextNode('¿Qué es lo que desea cacular?');
+    var txtTd1 = document.createTextNode('Seleccione una operación');
     td1.appendChild(txtTd1);
     tr1.appendChild(td1);
     table.appendChild(tr1);
@@ -233,7 +281,7 @@ function addTittle(table) {
 }
 
 
-function addFormCalculator() {
+function addFormCalculator(efecctiveR) {
 
 
 
@@ -246,15 +294,24 @@ function addFormCalculator() {
 
     form1.appendChild(table1);
 
-    addSelects(table1);
 
-    addInputs(table1);
+    if (efecctiveR == 1) {
+
+        addInputsEffectiveRate(table1); 
+    } else {
+
+        addSelects(table1);
+        addInputs(table1);
+
+
+    }
 
     addButons(table1);
 
 
 }
 
+//events
 
 function borrarInputs() {
 
@@ -282,31 +339,44 @@ function blockInputs(inputs) {
 }
 
 
+
+//methods
+
 function makeCal(operationSelected) {
 
     var iniCap = document.getElementById('Cap. Inicial');
+    console.log(iniCap.value);
     var time = document.getElementById('Tiempo');
     var porc = document.getElementById('Porc. Int.');
     var earning = document.getElementById('Ganancias');
-    var resultado = 'error de calculo';
     var operation;
+
     switch (numbOperation) {
         case (1):
-            operation = new simpleCap(iniCap.value, time.value, porc.value);
+            operation = new simpleCap(iniCap.value, time.value, porc.value, earning.value);
+            console.log(operation);
+            resultado = SimpCap_CompoundCap_discount(operationSelected, operation);
             break;
         case (2):
-            operation = new compoudCap(iniCap.value, time.value, porc.value);
+            operation = new compoudCap(iniCap.value, time.value, porc.value, earning.value);
+            resultado = SimpCap_CompoundCap_discount(operationSelected, operation)
             break;
         case (3):
-            operation = new discount(iniCap.value, time.value, porc.value);
+            operation = new discount(iniCap.value, time.value, porc.value, earning.value);
+            resultado = SimpCap_CompoundCap_discount(operationSelected, operation)
             break;
         case (4):
-            operation = new effectiveRate(iniCap.value, time.value, porc.value);
+            resultado = operation = new effectiveRate(time.value, porc.value);
             break;
         default:
             break;
     }
-    operation.earnings = earning.value;
+
+}
+
+function SimpCap_CompoundCap_discount(operationSelected, operation) {
+
+
     switch (operationSelected) {
         case ('Ganancias'):
             resultado = operation.calculateEarnedEarnings();

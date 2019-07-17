@@ -6,17 +6,18 @@ class simpleCap{
     time;//periodo en el cual estaremos invirtiendo o tiempo que paso, es en años
 
     perceivedIn;//intereses percibidos
-    percentIn;//porcentajes de interes
     earnings;//ganancias obtenidas
     divisor;//si es anual por cien
 
 
-    constructor(intialCap, time, percentIn) {
+    constructor(intialCap, time, percentIn, earnings) {
 
         this.intialCap = intialCap;
         this.time = time;
         this.percentIn = percentIn;
         this.divisor = 100;
+        this.earnings = earnings;
+
 
     }
 
@@ -24,11 +25,8 @@ class simpleCap{
     calculateEarnedEarnings() {
 
         var i = this.percentIn / this.divisor;
-
-
         this.earnings = this.intialCap * (1 + i * this.time);
         return this.earnings;
-
     }
 
     calculateInitialCap() {
@@ -36,9 +34,9 @@ class simpleCap{
         var i = this.percentIn / this.divisor;
         var a = i * this.time;
         a = a+1;
-        this.intialCap = this.earnings / a;
+        var intialCap = this.earnings / a;
 
-        return this.intialCap;
+        return intialCap;
     }
 
     calculateInterest() {
@@ -48,9 +46,9 @@ class simpleCap{
         
         var c=  b / a;
 
-        this.percentIn = c * 100;
+        var percentIn = c * 100;
         
-        return this.percentIn;
+        return percentIn;
     }
 
 
@@ -59,8 +57,8 @@ class simpleCap{
         var i = this.percentIn / this.divisor;
         var a = this.earnings - this.intialCap;
         var b= this.intialCap * i;
-        this.time = a / b;
-        return this.time;
+        var time = a / b;
+        return time;
 
 
     }

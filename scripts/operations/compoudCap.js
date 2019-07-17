@@ -24,9 +24,8 @@ class compoudCap {
         var i = this.percentIn / this.divisor;
         var a = 1 + i;
         var b = Math.pow(a, this.time);
-        this.earnings = this.intialCap * b;
-        alert(this.earnings);
-        return this.earnings;
+        var earnings = this.intialCap * b;
+        return earnings;
 
     }
 
@@ -37,8 +36,8 @@ class compoudCap {
         var i = this.percentIn / this.divisor;
         var a = 1 + i;
         var res = Math.pow(a, this.time);
-        this.intialCap = this.earnings / res;
-        return this.intialCap;
+        var intialCap = this.earnings / res;
+        return intialCap;
     }
 
     calculateInterest() {
@@ -47,8 +46,8 @@ class compoudCap {
         var exp = 1 / this.time
         var res = Math.pow(a, exp);
         this.percentIn = (res - 1);
-        this.percentIn = this.percentIn * 100;
-        return this.percentIn;
+        var percentIn = this.percentIn * 100;
+        return percentIn;
     }
 
 
