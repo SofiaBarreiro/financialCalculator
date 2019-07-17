@@ -17,6 +17,8 @@ window.addEventListener('load', function(){
 
     addSelectOperation(table1);
     console.log('paso por load');
+
+    
 });
 
 
@@ -131,21 +133,18 @@ function addButons(table) {
 
     var buttonCalcular = document.getElementById('Calcular');
 
-
-
-    buttonCalcular.addEventListener('click',function () {
-
+    buttonCalcular.addEventListener('click', function(load){
+        load.preventDefault();
         calcularCapitalizacionSimple(operationSelected);
+        borrarInputs();
 
     });
 
-    window.removeEventListener("load", function(){});
-    buttonBorrar.addEventListener('click', function () {
-        
 
-        
+    
+    buttonBorrar.addEventListener('click',  function(load){
+        load.preventDefault();
         borrarInputs();
-
     });
 
 
