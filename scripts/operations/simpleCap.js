@@ -1,4 +1,4 @@
-class operation {
+class simpleCap{
 
 
 

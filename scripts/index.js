@@ -1,8 +1,8 @@
 var operationSelected;
 var inputs;
+var numbOperation;
 
-window.addEventListener('load', function(){
-
+window.addEventListener('load', function () {
 
     var idForm = document.getElementById('form1');
     var form1 = document.createElement('form');
@@ -16,9 +16,10 @@ window.addEventListener('load', function(){
     addTittle(table1);
 
     addSelectOperation(table1);
-    console.log('paso por load');
+    numbOperation = 0;
 
-    
+
+
 });
 
 
@@ -106,7 +107,7 @@ function addInputs(table) {
 
 
 
-function addButons(table) {
+function addButons(table, numbOperation) {
 
 
     var tr2 = document.createElement('tr');
@@ -133,16 +134,20 @@ function addButons(table) {
 
     var buttonCalcular = document.getElementById('Calcular');
 
-    buttonCalcular.addEventListener('click', function(load){
+    buttonCalcular.addEventListener('click', function (load) {
         load.preventDefault();
-        calcularCapitalizacionSimple(operationSelected);
+
+
+        makeCal(operationSelected);
+
+
         borrarInputs();
 
     });
 
 
-    
-    buttonBorrar.addEventListener('click',  function(load){
+
+    buttonBorrar.addEventListener('click', function (load) {
         load.preventDefault();
         borrarInputs();
     });
@@ -179,11 +184,29 @@ function addSelectOperation(table) {
 
     selectVar.onchange = function () {
 
-
-
         formIntro.setAttribute('class', 'hidden');
+        switch (selectVar.value) {
+            case ('Capitalización Simple'):
+                numbOperation = 1;
+                addFormCalculator();
+                break;
+            case ('Capitalización compuesta'):
+                numbOperation = 2;
+                addFormCalculator();
+                break;
+            case ('Tasa nominal'):
+                numbOperation = 3;
+                addFormCalculator();
+                break;
+            case ('Descuento'):
+                numbOperation = 4;
+                addFormCalculator();
+                break;
+            default:
+                break;
 
-        addFormCapSimple();
+
+        }
 
 
     };
@@ -214,7 +237,7 @@ function addTittle(table) {
 }
 
 
-function addFormCapSimple() {
+function addFormCalculator() {
 
 
 
@@ -232,9 +255,6 @@ function addFormCapSimple() {
     addInputs(table1);
 
     addButons(table1);
-
- 
-
 
 
 }
@@ -266,30 +286,45 @@ function blockInputs(inputs) {
 }
 
 
-function calcularCapitalizacionSimple(operationSelected) {
-
-
+function makeCal(operationSelected) {
 
     var iniCap = document.getElementById('Cap. Inicial');
     var time = document.getElementById('Tiempo');
     var porc = document.getElementById('Porc. Int.');
     var earning = document.getElementById('Ganancias');
-    var operation1 = new operation(iniCap.value, time.value, porc.value);
-    operation1.earnings = earning.value;
     var resultado = 'error de calculo';
+    var operation;
+    switch (numbOperation) {
+        case (1):
+            operation = new simpleCap(iniCap.value, time.value, porc.value);
+            break;
+        case (2):
+            operation = new compoudCap(iniCap.value, time.value, porc.value);
+            break;
+        case (3):
+            operation = new discount(iniCap.value, time.value, porc.value);
+            break;
+        case (4):
+            operation = new effectiveRate(iniCap.value, time.value, porc.value);
+
+            break;
+        default:
+            break;
+    }
+    operation.earnings = earning.value;
     switch (operationSelected) {
         case ('Ganancias'):
-            resultado = operation1.calculateEarnedEarnings();
+            resultado = operation.calculateEarnedEarnings();
             break;
-        case ('Cap. Inicial'):
-            resultado = operation1.calculateInitialCap();
-            break;
-        case ('Porc. Int.'):
-            resultado = operation1.calculateInterest();
-            break;
-        case ('Tiempo'):
-            resultado = operation1.calculateTime();
-            break;
+        // case ('Cap. Inicial'):
+        //     resultado = operation.calculateInitialCap();
+        //     break;
+        // case ('Porc. Int.'):
+        //     resultado = operation.calculateInterest();
+        //     break;
+        // case ('Tiempo'):
+        //     resultado = operation.calculateTime();
+        //     break;
         default:
             break;
 
