@@ -26,7 +26,6 @@ window.addEventListener('load', function () {
 
 //parts
 
-
 function addText(text) {
 
     var tr0 = document.createElement('tr');
@@ -39,7 +38,6 @@ function addText(text) {
 
 
 }
-
 
 function addSelects(table) {
 
@@ -182,7 +180,7 @@ function addButons(table) {
         makeCal(operationSelected);
         borrarInputs();
         addFormResults();
-        
+
 
 
     });
@@ -205,7 +203,7 @@ function addSelectOperation(table) {
     trS.appendChild(tdS);
     var selectVar = document.createElement('select');
     selectVar.setAttribute('id', 'selectVar');
-    var namesVar = ['','Capitalización Simple', 'Capitalización compuesta', 'Descuento', 'Tasa nominal'];
+    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Descuento', 'Tasa nominal'];
 
 
     for (var i = 0; i < 5; i++) {
@@ -294,30 +292,42 @@ function addFormCalculator(efecctiveR) {
 
 }
 
-function addFormResults(){
-    //cuando hago clic la segunda vez la tabla se vuelve a construir otra vez de cero porque las estoy construyendo cada vez que llamo al evento click
-    //para eso tengo que tenerlas armadas desde antes y las muestros y las escondo con las clases show y hidden
+function addFormResults() {
+
+
+
     var idForm = document.getElementById('form2');
     idForm.setAttribute('class', 'hidden');
+
+
     var idForm3 = document.getElementById('form3');
     idForm3.setAttribute('class', 'show');
 
-    var form1 = document.createElement('form');
-    idForm.appendChild(form1);
+    if (document.getElementById('form3').firstChild == null) {
 
-    var table1 = document.createElement('table');
-    form1.appendChild(table1);
-    table1.appendChild(addText(resultado));
 
-    var idForm3 = document.getElementById('form3');
-    idForm3.appendChild(form1);
-   
-    addButtonResults(table1);
+        var form1 = document.createElement('form');
+        form1.setAttribute('id', 'form1');
+        idForm.appendChild(form1);
 
-    
+        var table1 = document.createElement('table');
+        form1.appendChild(table1);
+        table1.appendChild(addText(resultado));
+
+        var idForm3 = document.getElementById('form3');
+        idForm3.appendChild(form1);
+
+        addButtonResults(table1);
+
+    }
+
+
 }
 
-function addButtonResults(table){
+
+
+
+function addButtonResults(table) {
 
     var tr2 = document.createElement('tr');
     var namesButton = ['Volver a Calcular', 'Salir'];
@@ -350,13 +360,11 @@ function addButtonResults(table){
         idForm3.setAttribute('class', 'hidden');
         var idForm2 = document.getElementById('form2');
         idForm2.setAttribute('class', 'show');
-       
+
 
     });
 
 }
-
-
 
 //events
 
@@ -385,8 +393,6 @@ function blockInputs(inputs) {
     operationSelected = inputs.id;
 }
 
-
-
 //functions
 
 function makeCal(operationSelected) {
@@ -400,8 +406,8 @@ function makeCal(operationSelected) {
 
     switch (numbOperation) {
         case (1):
+
             operation = new simpleCap(iniCap.value, time.value, porc.value, earning.value);
-            console.log(operation);
             resultado = SimpCap_CompoudCap_discount(operationSelected, operation);
             break;
         case (2):
@@ -446,3 +452,7 @@ function SimpCap_CompoudCap_discount(operationSelected, operation) {
     return resultado;
 
 }
+
+
+
+
