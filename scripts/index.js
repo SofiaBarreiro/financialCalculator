@@ -295,13 +295,13 @@ function addFormCalculator(efecctiveR) {
 function addFormResults() {
 
 
-
     var idForm = document.getElementById('form2');
     idForm.setAttribute('class', 'hidden');
 
 
     var idForm3 = document.getElementById('form3');
     idForm3.setAttribute('class', 'show');
+
 
     if (document.getElementById('form3').firstChild == null) {
 
@@ -312,13 +312,26 @@ function addFormResults() {
 
         var table1 = document.createElement('table');
         form1.appendChild(table1);
-        table1.appendChild(addText(resultado));
+        var tr0 = document.createElement('tr');
+        var td0 = document.createElement('td');
+        td0.setAttribute('colspan', '3');
+        td0.setAttribute('id', 'answer');
+
+        var txtTd0 = document.createTextNode(resultado);
+        
+
+        td0.appendChild(txtTd0);
+        tr0.appendChild(td0);
+        table1.appendChild(tr0);
 
         var idForm3 = document.getElementById('form3');
         idForm3.appendChild(form1);
 
         addButtonResults(table1);
 
+    }else{
+
+        document.getElementById('answer').textContent = resultado;
     }
 
 
@@ -398,11 +411,9 @@ function blockInputs(inputs) {
 function makeCal(operationSelected) {
 
     var iniCap = document.getElementById('Cap. Inicial');
-    console.log(iniCap.value);
     var time = document.getElementById('Tiempo');
     var porc = document.getElementById('Porc. Int.');
     var earning = document.getElementById('Ganancias');
-    var operation;
 
     switch (numbOperation) {
         case (1):
@@ -426,10 +437,14 @@ function makeCal(operationSelected) {
             break;
     }
 
+
+    return resultado;
+
 }
 
 function SimpCap_CompoudCap_discount(operationSelected, operation) {
 
+    resultado = null;
 
     switch (operationSelected) {
         case ('Ganancias'):
@@ -448,7 +463,6 @@ function SimpCap_CompoudCap_discount(operationSelected, operation) {
             break;
 
     }
-    alert(resultado);
     return resultado;
 
 }

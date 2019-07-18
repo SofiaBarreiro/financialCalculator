@@ -4,15 +4,10 @@ class simpleCap {
 
     initialCap;//capital inicial
     time;//periodo en el cual estaremos invirtiendo o tiempo que paso, es en años
-
     perceivedIn;//intereses percibidos
     earnings;//ganancias obtenidas
     divisor;//si es anual por cien
-    ret = 'Error de calculo, uno de los datos ingresados no es un número';
-
-
-
-
+    ret = 'Error de cálculo, uno de los datos ingresados no es un número';
 
 
 
@@ -29,36 +24,16 @@ class simpleCap {
     }
 
 
-
-
-    isNumberO(number) {
-
-        if (isNumber(number)) {
-
-            return number;
-
-        } else {
-
-            return 0;
-
-        }
-
-    }
-
-
     calculateEarnedEarnings() {
 
-        var ret = ''
-        this.percentIn=this.isNumber0(this.percentIn);
 
-        var i = percentIn / this.divisor;
-        console.log(i);
-        this.earnings = isNumber0(this.initialCap) * (1 + i * isNumber0(this.time));
-        if(earnings != 0){
+        var i = this.percentIn / this.divisor;
+        this.earnings = this.initialCap * (1 + i *this.time);
+        if(!isNaN(this.earnings)){
 
-            ret = 'La ganancia total es de ' + this.earnings;
+            this.ret = 'La ganancia total es de ' + this.earnings;
         }
-        return ret;
+        return this.ret;
     }
 
     calculateInitialCap() {
@@ -68,10 +43,11 @@ class simpleCap {
         a = a + 1;
         var initialCap = this.earnings / a;
 
-        if (initialCap != 0) {
-            return 'El capital inicial es de ' + initialCap;
+        if (!isNaN(initialCap)) {
+            this.ret= 'El capital inicial es de ' + initialCap;
 
         }
+        return this.ret;
 
     }
 
@@ -83,8 +59,12 @@ class simpleCap {
         var c = b / a;
 
         var percentIn = c * 100;
+        if(!isNaN(percentIn)){
 
-        return 'El porcentaje anual es de' + percentIn;
+            this.ret = 'El porcentaje anual es de' + percentIn;
+        }
+
+        return this.ret;
     }
 
 
@@ -94,8 +74,12 @@ class simpleCap {
         var a = this.earnings - this.initialCap;
         var b = this.initialCap * i;
         var time = a / b;
-        return 'El tiempo es de ' + time + 'años';
+        if(!isNaN(time)){
 
+            this.ret = 'El tiempo es de ' + time + 'años';
+
+        }
+        return this.ret;
 
     }
 
