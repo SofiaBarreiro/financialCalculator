@@ -25,7 +25,8 @@ class compoudCap {
         var a = 1 + i;
         var b = Math.pow(a, this.time);
         var earnings = this.intialCap * b;
-        return earnings;
+
+        return "La ganancia total es de " + earnings;
 
     }
 
@@ -36,8 +37,8 @@ class compoudCap {
         var i = this.percentIn / this.divisor;
         var a = 1 + i;
         var res = Math.pow(a, this.time);
-        var intialCap = this.earnings / res;
-        return intialCap;
+        var initialCap = this.earnings / res;
+        return 'El capital inicial es de' + initialCap;
     }
 
     calculateInterest() {
@@ -47,7 +48,7 @@ class compoudCap {
         var res = Math.pow(a, exp);
         this.percentIn = (res - 1);
         var percentIn = this.percentIn * 100;
-        return percentIn;
+        return 'El porcentajes anual es de ' + percentIn;
     }
 
 

@@ -27,7 +27,7 @@ window.addEventListener('load', function () {
 //parts
 
 
-function addText(text){
+function addText(text) {
 
     var tr0 = document.createElement('tr');
     var td0 = document.createElement('td');
@@ -36,6 +36,7 @@ function addText(text){
     td0.appendChild(txtTd0);
     tr0.appendChild(td0);
     return tr0;
+
 
 }
 
@@ -83,9 +84,7 @@ function addInputs(table) {
 
     var namesVar = ['Cap. Inicial', 'Tiempo', 'Porc. Int.', 'Ganancias'];
     for (var i = 0; i < 4; i++) {
-
         var tr = document.createElement('tr');
-
         for (var j = 0; j < 2; j++) {
             var td1 = document.createElement('td');
 
@@ -100,19 +99,13 @@ function addInputs(table) {
                     input.setAttribute('id', namesVar[i]);
                     td1.appendChild(input);
                     break;
-                default: break;
+                default:
+                    break;
             }
-
             tr.appendChild(td1);
-
-
         }
         table.appendChild(tr);
-
     }
-
-
-
 }
 
 function addInputsEffectiveRate(table) {
@@ -159,12 +152,16 @@ function addButons(table) {
     var tr2 = document.createElement('tr');
     var namesButton = ['Calcular', 'Borrar', 'Volver'];
 
+
     for (var i = 0; i < 3; i++) {
+
 
         var td = document.createElement('td');
 
         var button = document.createElement('button');
         button.setAttribute('id', namesButton[i]);
+        addText(namesButton[i]);
+
         var text1 = document.createTextNode(namesButton[i]);
 
         tr2.appendChild(td);
@@ -184,6 +181,9 @@ function addButons(table) {
         load.preventDefault();
         makeCal(operationSelected);
         borrarInputs();
+        addFormResults();
+        
+
 
     });
 
@@ -205,7 +205,7 @@ function addSelectOperation(table) {
     trS.appendChild(tdS);
     var selectVar = document.createElement('select');
     selectVar.setAttribute('id', 'selectVar');
-    var namesVar = ['', 'Capitalización Simple', 'Capitalización compuesta', 'Descuento', 'Tasa nominal'];
+    var namesVar = ['','Capitalización Simple', 'Capitalización compuesta', 'Descuento', 'Tasa nominal'];
 
 
     for (var i = 0; i < 5; i++) {
@@ -245,7 +245,6 @@ function addSelectOperation(table) {
                 numbOperation = 4;
                 addFormCalculator(1);
                 break;
-
             default:
                 break;
 
@@ -260,24 +259,8 @@ function addSelectOperation(table) {
 }
 function addTittle(table) {
 
-    var tr0 = document.createElement('tr');
-    var td0 = document.createElement('td');
-    td0.setAttribute('colspan', '3');
-    var txtTd0 = document.createTextNode('Bienvenido a la Calculadora Financiera');
-    td0.appendChild(txtTd0);
-    tr0.appendChild(td0);
-    table.appendChild(tr0);
-
-    var tr1 = document.createElement('tr');
-    var td1 = document.createElement('td');
-    td1.setAttribute('colspan', '3');
-    var txtTd1 = document.createTextNode('Seleccione una operación');
-    td1.appendChild(txtTd1);
-    tr1.appendChild(td1);
-    table.appendChild(tr1);
-
-
-
+    table.appendChild(addText('Bienvenido a la Calculadora Financiera'));
+    table.appendChild(addText('Seleccione una operación'));
 }
 
 
@@ -286,18 +269,18 @@ function addFormCalculator(efecctiveR) {
 
 
     var idForm = document.getElementById('form2');
-    var form1 = document.createElement('form');
+    var form2 = document.createElement('form');
 
-    idForm.appendChild(form1);
+    idForm.appendChild(form2);
 
     var table1 = document.createElement('table');
 
-    form1.appendChild(table1);
+    form2.appendChild(table1);
 
 
-    if (efecctiveR == 1) {
+    if (efecctiveR) {
 
-        addInputsEffectiveRate(table1); 
+        addInputsEffectiveRate(table1);
     } else {
 
         addSelects(table1);
@@ -310,6 +293,70 @@ function addFormCalculator(efecctiveR) {
 
 
 }
+
+function addFormResults(){
+    //cuando hago clic la segunda vez la tabla se vuelve a construir otra vez de cero porque las estoy construyendo cada vez que llamo al evento click
+    //para eso tengo que tenerlas armadas desde antes y las muestros y las escondo con las clases show y hidden
+    var idForm = document.getElementById('form2');
+    idForm.setAttribute('class', 'hidden');
+    var idForm3 = document.getElementById('form3');
+    idForm3.setAttribute('class', 'show');
+
+    var form1 = document.createElement('form');
+    idForm.appendChild(form1);
+
+    var table1 = document.createElement('table');
+    form1.appendChild(table1);
+    table1.appendChild(addText(resultado));
+
+    var idForm3 = document.getElementById('form3');
+    idForm3.appendChild(form1);
+   
+    addButtonResults(table1);
+
+    
+}
+
+function addButtonResults(table){
+
+    var tr2 = document.createElement('tr');
+    var namesButton = ['Volver a Calcular', 'Salir'];
+
+
+    for (var i = 0; i < 2; i++) {
+
+
+        var td = document.createElement('td');
+
+        var button = document.createElement('button');
+        button.setAttribute('id', namesButton[i]);
+        addText(namesButton[i]);
+        var text1 = document.createTextNode(namesButton[i]);
+        tr2.appendChild(td);
+        td.appendChild(button);
+        button.appendChild(text1);
+
+
+
+    }
+    table.appendChild(tr2);
+
+
+    var buttonVolver = document.getElementById('Volver a Calcular');
+
+    buttonVolver.addEventListener('click', function (load) {
+        load.preventDefault();
+        var idForm3 = document.getElementById('form3');
+        idForm3.setAttribute('class', 'hidden');
+        var idForm2 = document.getElementById('form2');
+        idForm2.setAttribute('class', 'show');
+       
+
+    });
+
+}
+
+
 
 //events
 
@@ -340,7 +387,7 @@ function blockInputs(inputs) {
 
 
 
-//methods
+//functions
 
 function makeCal(operationSelected) {
 
@@ -355,7 +402,7 @@ function makeCal(operationSelected) {
         case (1):
             operation = new simpleCap(iniCap.value, time.value, porc.value, earning.value);
             console.log(operation);
-            resultado = SimpCap_CompoundCap_discount(operationSelected, operation);
+            resultado = SimpCap_CompoudCap_discount(operationSelected, operation);
             break;
         case (2):
             operation = new compoudCap(iniCap.value, time.value, porc.value, earning.value);
@@ -363,10 +410,11 @@ function makeCal(operationSelected) {
             break;
         case (3):
             operation = new discount(iniCap.value, time.value, porc.value, earning.value);
-            resultado = SimpCap_CompoundCap_discount(operationSelected, operation)
+            resultado = SimpCap_CompoudCap_discount(operationSelected, operation)
             break;
         case (4):
-            resultado = operation = new effectiveRate(time.value, porc.value);
+            operation = new effectiveRate(time.value, porc.value);
+            resultado = operation.calculateEffectiveRate();
             break;
         default:
             break;
@@ -374,7 +422,7 @@ function makeCal(operationSelected) {
 
 }
 
-function SimpCap_CompoundCap_discount(operationSelected, operation) {
+function SimpCap_CompoudCap_discount(operationSelected, operation) {
 
 
     switch (operationSelected) {

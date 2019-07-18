@@ -19,7 +19,8 @@ class effectiveRate {
         var a = this.percentIn /this.divisor;
         var b = 1+ a;
         var c = Math.pow(b, this.time);
-        return c -1;
+        var d = c -1;
+        return 'La tasa efectiva anual es del ' + d;
 
     }
 

@@ -26,7 +26,7 @@ class simpleCap{
 
         var i = this.percentIn / this.divisor;
         this.earnings = this.intialCap * (1 + i * this.time);
-        return this.earnings;
+        return 'La ganancia total es de ' + this.earnings;
     }
 
     calculateInitialCap() {
@@ -36,7 +36,7 @@ class simpleCap{
         a = a+1;
         var intialCap = this.earnings / a;
 
-        return intialCap;
+        return 'El capital inicial es de ' + intialCap;
     }
 
     calculateInterest() {
@@ -48,7 +48,7 @@ class simpleCap{
 
         var percentIn = c * 100;
         
-        return percentIn;
+        return 'El porcentaje anual es de' + percentIn;
     }
 
 
@@ -58,7 +58,7 @@ class simpleCap{
         var a = this.earnings - this.intialCap;
         var b= this.intialCap * i;
         var time = a / b;
-        return time;
+        return 'El tiempo es de ' + time + 'años';
 
 
     }
